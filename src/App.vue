@@ -25,4 +25,7 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@use "./styles/partials/reset";
+@use "./styles/general.scss";
+</style>
