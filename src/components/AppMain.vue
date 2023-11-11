@@ -10,9 +10,9 @@
               <li><span>Original Title: </span>{{ movie.original_title }}</li>
               <li><span>Vote Average: </span>{{ movie.vote_average }}</li>
               <li><span>Language: </span>{{ movie.original_language }}</li>
-              <li>
-                <img :src="getFlag(movie.original_language)" />
-              </li>
+              <li><img :src="getFlag(movie.original_language)" /></li>
+              <li v-if="movie.backdrop_path"> <img :src="getImg(movie.backdrop_path)" /> </li>
+              <li v-if="movie.poster_path"> <img :src="getImg(movie.poster_path)" /> </li>
             </ul>
           </li>
         </ul>
@@ -27,9 +27,9 @@
               <li><span>Original Title: </span>{{ series.original_name }}</li>
               <li><span>Vote Average: </span>{{ series.vote_average }}</li>
               <li><span>Language: </span>{{ series.original_language }}</li>
-              <li>
-                <img :src="getFlag(series.original_language)" />
-              </li>
+              <li> <img :src="getFlag(series.original_language)" /> </li>
+              <li v-if="series.backdrop_path"> <img :src="getImg(series.backdrop_path)" /> </li>
+              <li v-if="series.poster_path"> <img :src="getImg(series.poster_path)" /> </li>
             </ul>
           </li>
         </ul>
@@ -52,6 +52,9 @@ export default {
     getFlag(lang) {
       const countryCode = getLanguage(lang).countryCode.replace("ja", "jp");
       return `https://flagcdn.com/w160/${countryCode}.png`;
+    },
+    getImg(url) {
+      if (url) return `http://image.tmdb.org/t/p/original${url}`
     },
   },
 };
@@ -89,6 +92,7 @@ main {
     li {
       margin-bottom: 5px;
     }
+
     span {
       font-weight: bold;
     }
@@ -96,7 +100,7 @@ main {
     img {
       display: block;
       border: 1px solid rgb(200, 200, 200);
-      width: 50px;
+      width: 160px;
       aspect-ratio: 3 / 2;
       object-fit: cover;
     }
