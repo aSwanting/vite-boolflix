@@ -9,6 +9,10 @@
               <li><span>Title: </span>{{ movie.title }}</li>
               <li><span>Original Title: </span>{{ movie.original_title }}</li>
               <li><span>Vote Average: </span>{{ movie.vote_average }}</li>
+              <li><span>Star Rating: </span>
+                <span v-for="n in getStars(movie.vote_average)"> * </span>
+                <span v-for="n in 5 - getStars(movie.vote_average)"> - </span>
+              </li>
               <li><span>Language: </span>{{ movie.original_language }}</li>
               <li><img :src="getFlag(movie.original_language)" /></li>
               <li v-if="movie.backdrop_path"> <img :src="getImg(movie.backdrop_path)" /> </li>
@@ -26,6 +30,10 @@
               <li><span>Title: </span>{{ series.name }}</li>
               <li><span>Original Title: </span>{{ series.original_name }}</li>
               <li><span>Vote Average: </span>{{ series.vote_average }}</li>
+              <li><span>Star Rating: </span>
+                <span v-for="n in getStars(series.vote_average)"> * </span>
+                <span v-for="n in 5 - getStars(series.vote_average)"> - </span>
+              </li>
               <li><span>Language: </span>{{ series.original_language }}</li>
               <li> <img :src="getFlag(series.original_language)" /> </li>
               <li v-if="series.backdrop_path"> <img :src="getImg(series.backdrop_path)" /> </li>
@@ -56,6 +64,9 @@ export default {
     getImg(url) {
       if (url) return `http://image.tmdb.org/t/p/original${url}`
     },
+    getStars(rating) {
+      return Math.round(rating / 2)
+    }
   },
 };
 </script>
