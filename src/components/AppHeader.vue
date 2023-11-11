@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="search">
-      <input v-model="userSearch" type="text" />
+      <input @keydown.enter="emitSearch()" v-model="userSearch" type="text" />
       <button @click="emitSearch()">Search</button>
     </div>
   </header>

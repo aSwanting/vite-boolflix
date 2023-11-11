@@ -21,8 +21,7 @@ const store = reactive({
       })
     );
     axios.all(requests).then((res) => {
-      this.movies = res[0].data.results;
-      this.series = res[1].data.results;
+      [this.movies, this.series] = res.map(item => item.data.results)
       console.log(this.movies, this.series);
     });
   },
