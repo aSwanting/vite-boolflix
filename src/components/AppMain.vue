@@ -45,7 +45,7 @@ export default {
 <style lang="scss" scoped>
 .search-results {
   background-color: #292929;
-  padding: 40px;
+  padding: 0 40px;
   flex-grow: 1;
   overflow-y: auto;
   h2 {
@@ -56,7 +56,7 @@ export default {
   .movies,
   .series {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
   }
 }

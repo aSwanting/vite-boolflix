@@ -1,15 +1,12 @@
 <template>
   <div class="card">
-    <img v-if="itemPoster" class="item-poster" :src="itemPoster" />
+    <img v-if="itemPoster" class="card-poster" :src="itemPoster" />
     <div class="card-info" :class="{ visible: !itemPoster }">
       <ul>
         <li>
-          <h3 class="bold">{{ title.translated }}</h3>
+          <h2 class="bold">{{ title.translated }}</h2>
           <span v-show="translateTitle"> {{ title.original }}</span>
         </li>
-
-        <li>{{ overview }}</li>
-
         <li>
           <span class="star" v-for="star in stars">
             <fa-icon :icon="['fas', 'star']" />
@@ -19,6 +16,7 @@
           </span>
         </li>
         <li><img class="flag" :src="flag" /></li>
+        <li>{{ overview }}</li>
       </ul>
     </div>
   </div>
@@ -87,11 +85,10 @@ export default {
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-  .item-poster {
+  .card-poster {
     object-fit: cover;
     display: block;
     height: 100%;
-    width: 100%;
   }
   .card-info {
     position: absolute;
@@ -109,6 +106,10 @@ export default {
     }
 
     ul {
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
       width: 100%;
       padding: 30px;
 
@@ -127,9 +128,12 @@ export default {
   }
 
   .flag {
-    width: 36px;
+    width: 32px;
     aspect-ratio: 3/2;
-    margin-top: 8px;
+    margin-top: 6px;
   }
+}
+::-webkit-scrollbar {
+  width: 5px;
 }
 </style>

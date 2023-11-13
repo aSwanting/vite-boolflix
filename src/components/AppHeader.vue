@@ -1,7 +1,7 @@
 <template>
   <header>
     <nav>
-      <div class="logo">BOOLFLIX</div>
+      <div class="logo"><a href="#" @click="reload()">BOOLFLIX</a></div>
       <div class="search">
         <input @keydown.enter="emitSearch()" v-model="userSearch" type="text" />
         <div class="search-icon" @click="emitSearch()">
@@ -28,6 +28,9 @@ export default {
       store.query = this.userSearch;
       this.userSearch = "";
       this.$emit("search");
+    },
+    reload() {
+      window.location.reload();
     },
   },
 };
