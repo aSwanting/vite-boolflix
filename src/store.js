@@ -12,18 +12,20 @@ const store = reactive({
   series: [],
 
   fetchData() {
-    const requests = this.endpoints.map((endpoint) =>
-      axios.get(endpoint, {
-        params: {
-          api_key: this.API_KEY,
-          query: this.query,
-        },
-      })
-    );
-    axios.all(requests).then((res) => {
-      [this.movies, this.series] = res.map(item => item.data.results)
-      console.log(this.movies, this.series);
-    });
+    if (this.query.trim()) {
+      const requests = this.endpoints.map((endpoint) =>
+        axios.get(endpoint, {
+          params: {
+            api_key: this.API_KEY,
+            query: this.query,
+          },
+        })
+      );
+      axios.all(requests).then((res) => {
+        [this.movies, this.series] = res.map((item) => item.data.results);
+        console.log(this.movies, this.series);
+      });
+    }
   },
 });
 
