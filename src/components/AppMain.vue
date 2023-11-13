@@ -10,8 +10,12 @@
               <li><span>Original Title: </span>{{ movie.original_title }}</li>
               <li><span>Vote Average: </span>{{ movie.vote_average }}</li>
               <li><span>Star Rating: </span>
-                <span v-for="n in getStars(movie.vote_average)"> * </span>
-                <span v-for="n in 5 - getStars(movie.vote_average)"> - </span>
+                <span v-for="n in getStars(movie.vote_average)">
+                  <fa-icon :icon="['fas', 'star']" />
+                </span>
+                <span v-for="n in 5 - getStars(movie.vote_average)">
+                  <fa-icon :icon="['far', 'star']" />
+                </span>
               </li>
               <li><span>Language: </span>{{ movie.original_language }}</li>
               <li><img :src="getFlag(movie.original_language)" /></li>
@@ -31,8 +35,12 @@
               <li><span>Original Title: </span>{{ series.original_name }}</li>
               <li><span>Vote Average: </span>{{ series.vote_average }}</li>
               <li><span>Star Rating: </span>
-                <span v-for="n in getStars(series.vote_average)"> * </span>
-                <span v-for="n in 5 - getStars(series.vote_average)"> - </span>
+                <span v-for="n in getStars(series.vote_average)">
+                  <fa-icon :icon="['fas', 'star']" />
+                </span>
+                <span v-for="n in 5 - getStars(series.vote_average)">
+                  <fa-icon :icon="['far', 'star']" />
+                </span>
               </li>
               <li><span>Language: </span>{{ series.original_language }}</li>
               <li> <img :src="getFlag(series.original_language)" /> </li>
@@ -59,7 +67,7 @@ export default {
   methods: {
     getFlag(lang) {
       const countryCode = getLanguage(lang).countryCode.replace("ja", "jp");
-      return `https://flagcdn.com/w160/${countryCode}.png`;
+      return `https://flagcdn.com/h240/${countryCode}.png`;
     },
     getImg(url) {
       if (url) return `http://image.tmdb.org/t/p/original${url}`
@@ -98,10 +106,16 @@ main {
   }
 
   ul {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 
     li {
       margin-bottom: 5px;
+
+      ul {
+        padding: 10px;
+        border: 2px solid grey;
+        border-radius: 10px;
+      }
     }
 
     span {
@@ -111,8 +125,8 @@ main {
     img {
       display: block;
       border: 1px solid rgb(200, 200, 200);
-      width: 160px;
-      aspect-ratio: 3 / 2;
+      width: 200px;
+      // aspect-ratio: 3 / 2;
       object-fit: cover;
     }
   }
