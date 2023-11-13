@@ -1,9 +1,14 @@
 <template>
   <header>
-    <div class="search">
-      <input @keydown.enter="emitSearch()" v-model="userSearch" type="text" />
-      <button @click="emitSearch()">Search</button>
-    </div>
+    <nav>
+      <div class="logo">BOOLFLIX</div>
+      <div class="search">
+        <input @keydown.enter="emitSearch()" v-model="userSearch" type="text" />
+        <div class="search-icon" @click="emitSearch()">
+          <fa-icon :icon="['fas', 'magnifying-glass']" />
+        </div>
+      </div>
+    </nav>
   </header>
 </template>
 
@@ -30,9 +35,43 @@ export default {
 
 <style lang="scss" scoped>
 header {
-  padding: 20px;
-  margin: 20px;
-  border: 2px solid grey;
-  border-radius: 10px;
+  padding: 40px;
+  background-color: black;
+  flex-shrink: 0;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .logo {
+    color: red;
+    font-weight: 700;
+    font-size: 28px;
+    user-select: none;
+    cursor: pointer;
+  }
+  .search {
+    display: flex;
+    gap: 20px;
+    input {
+      border-radius: 50px;
+      padding: 5px 15px;
+      outline: none;
+      border: none;
+      &:focus-visible {
+        outline: none;
+        border: none;
+      }
+    }
+    .search-icon {
+      color: white;
+      font-size: 25px;
+      opacity: 0.8;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
 }
 </style>

@@ -1,6 +1,8 @@
 <template>
-  <div><AppHeader @search="searchDB" /></div>
-  <div><AppMain /></div>
+  <div class="app">
+    <AppHeader @search="searchDB" />
+    <AppMain />
+  </div>
 </template>
 
 <script>
@@ -28,4 +30,10 @@ export default {
 <style lang="scss">
 @use "./styles/partials/reset";
 @use "./styles/general.scss";
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
 </style>
