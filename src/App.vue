@@ -9,8 +9,8 @@ import AppHeader from "./components/AppHeader.vue";
 import store from "./store.js";
 export default {
   components: {
-    AppMain,
     AppHeader,
+    AppMain,
   },
   data() {
     return {
