@@ -90,10 +90,10 @@ export default {
     },
     flag() {
       const lang = this.item.original_language;
-      const countryCode = getLanguage(
-        lang.replace("xx", "es")
-      ).countryCode.replace("ja", "jp");
-      return `https://flagcdn.com/h240/${countryCode}.png`;
+      if (lang !== "xx") {
+        const countryCode = getLanguage(lang).countryCode.replace("ja", "jp");
+        return `https://flagcdn.com/h240/${countryCode}.png`;
+      }
     },
     itemPoster() {
       const url = this.item.poster_path;
