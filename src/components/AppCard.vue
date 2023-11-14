@@ -117,6 +117,8 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    text-transform: uppercase;
     padding: 20px;
     height: 100%;
     background: rgb(88, 20, 54);
@@ -125,11 +127,13 @@ export default {
       rgb(88, 20, 54) 0%,
       rgba(33, 33, 33, 1) 100%
     );
-    h2,
+    h2 {
+      font-size: 28px;
+      font-weight: 400;
+    }
     h4 {
+      font-size: 14px;
       font-weight: 300;
-      text-align: center;
-      text-transform: uppercase;
     }
   }
   .card-info {
