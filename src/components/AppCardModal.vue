@@ -93,26 +93,13 @@ export default {
     li {
       margin-bottom: 20px;
     }
-    .portrait {
-      width: 120px;
-      overflow: hidden;
-      aspect-ratio: 1;
-      background-color: #3f3f3f;
-      border-radius: 50%;
-      margin: 0 auto;
-      margin-bottom: 8px;
-    }
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      box-shadow: 13px 12px 20px 0px rgb(0 0 0 / 29%);
-    }
     .cast {
-      display: flex;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      gap: 20px;
 
       li {
-        flex-basis: calc(100% / 5);
         text-align: center;
       }
 
@@ -122,6 +109,20 @@ export default {
       .character {
         font-size: 12px;
         font-style: italic;
+      }
+      .portrait {
+        overflow: hidden;
+        aspect-ratio: 1;
+        background-color: #3f3f3f;
+        border-radius: 50%;
+        margin: 0 auto;
+        margin-bottom: 8px;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        box-shadow: 13px 12px 20px 0px rgb(0 0 0 / 29%);
       }
     }
   }
