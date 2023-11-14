@@ -10,6 +10,7 @@ const store = reactive({
   query: "",
   movies: [],
   series: [],
+  details: [],
   credits: [],
 
   fetchData() {
@@ -30,17 +31,31 @@ const store = reactive({
       });
     }
   },
+  fetchDetails(type, id) {
+    this.details = [];
+    this.credits = [];
+    const endpoints = [
+      `https://api.themoviedb.org/3/${type}/${id}`,
+      `https://api.themoviedb.org/3/${type}/${id}/credits`,
+    ];
 
-  fetchCredits(id) {
-    axios
-      .get(`https://api.themoviedb.org/3/movie/${id}/credits`, {
-        params: { api_key: this.API_KEY },
+    const requests = endpoints.map((endpoint) =>
+      axios.get(endpoint, {
+        params: {
+          api_key: this.API_KEY,
+        },
       })
-      .then((res) => {
-        this.credits = res.data;
-        console.log(this.credits);
-      });
+    );
+    axios.all(requests).then((res) => {
+      [this.movieDetails, this.movieCredits, this.tvDetails, this.tvCredits] =
+        res.map((item) => item.data);
+      console.log(
+        this.movieDetails,
+        this.movieCredits,
+        this.tvDetails,
+        this.tvCredits
+      );
+    });
   },
 });
-
 export default store;

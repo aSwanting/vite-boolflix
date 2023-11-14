@@ -7,8 +7,8 @@
           v-for="currentMovie in movies"
           :key="currentMovie.id"
           :item="currentMovie"
-          @click="emitCredits(currentMovie.id)"
           category="film"
+          @click="emitMovieDetails(currentMovie.id)"
         />
       </div>
     </div>
@@ -20,8 +20,8 @@
           v-for="currentSeries in series"
           :key="currentSeries.id"
           :item="currentSeries"
-          @click="emitCredits(currentSeries.id)"
           category="tv"
+          @click="emitTvDetails(currentSeries.id)"
         />
       </div>
     </div>
@@ -41,8 +41,11 @@ export default {
     AppCard,
   },
   methods: {
-    emitCredits(id) {
-      return this.$emit("credits", id);
+    emitMovieDetails(id) {
+      return this.$emit("movieDetails", id);
+    },
+    emitTvDetails(id) {
+      return this.$emit("tvDetails", id);
     },
   },
   computed: {

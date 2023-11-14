@@ -1,30 +1,42 @@
 <template>
   <div class="app">
     <AppHeader @search="searchDB" />
-    <AppMain @credits="itemCredits" />
+    <AppMain @movieDetails="movieDetails" @tvDetails="tvDetails" />
+    <AppCardModal @closeModal="closeModal" v-if="modalOpen" />
   </div>
 </template>
 
 <script>
-import AppMain from "./components/AppMain.vue";
 import AppHeader from "./components/AppHeader.vue";
+import AppMain from "./components/AppMain.vue";
+import AppCardModal from "./components/AppCardModal.vue";
 import store from "./store.js";
 export default {
   components: {
     AppHeader,
     AppMain,
+    AppCardModal,
   },
   data() {
     return {
       store,
+      modalOpen: false,
     };
   },
   methods: {
     searchDB() {
       store.fetchData();
     },
-    itemCredits(id) {
-      store.fetchCredits(id);
+    movieDetails(id) {
+      store.fetchDetails("movie", id);
+      this.modalOpen = true;
+    },
+    tvDetails(id) {
+      store.fetchDetails("tv", id);
+      this.modalOpen = true;
+    },
+    closeModal() {
+      this.modalOpen = false;
     },
   },
 };
