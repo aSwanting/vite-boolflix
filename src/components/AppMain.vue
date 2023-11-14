@@ -4,7 +4,8 @@
       <h2>Movies</h2>
       <div class="movies">
         <AppCard
-          v-for="(currentMovie, index) in movies"
+          v-for="currentMovie in movies"
+          :key="currentMovie.id"
           :item="currentMovie"
           category="film"
         />
@@ -15,7 +16,8 @@
       <h2>Series</h2>
       <div class="series">
         <AppCard
-          v-for="(currentSeries, index) in series"
+          v-for="currentSeries in series"
+          :key="currentSeries.id"
           :item="currentSeries"
           category="tv"
         />
