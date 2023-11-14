@@ -1,20 +1,26 @@
 <template>
   <div class="search-results">
-
     <div v-if="moviesCount" class="container">
       <h2>Movies</h2>
       <div class="movies">
-        <AppCard v-for="(currentMovie, index) in movies" :item="currentMovie" category="film" />
+        <AppCard
+          v-for="(currentMovie, index) in movies"
+          :item="currentMovie"
+          category="film"
+        />
       </div>
     </div>
 
     <div v-if="seriesCount" class="container">
       <h2>Series</h2>
       <div class="series">
-        <AppCard v-for="(currentSeries, index) in series" :item="currentSeries" category="tv" />
+        <AppCard
+          v-for="(currentSeries, index) in series"
+          :item="currentSeries"
+          category="tv"
+        />
       </div>
     </div>
-
   </div>
 </template>
 
@@ -65,7 +71,7 @@ export default {
     .movies,
     .series {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 20px;
     }
   }
