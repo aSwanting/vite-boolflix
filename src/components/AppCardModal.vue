@@ -5,7 +5,16 @@
         <li>
           <h1>{{ title }}</h1>
         </li>
-        <li>{{ overview }}</li>
+
+        <li>
+          <p class="subtitle">Overview</p>
+          <p>{{ overview }}</p>
+        </li>
+        <p class="subtitle">Genres</p>
+        <ul class="genres">
+          <li v-for="genre in genres">{{ genre.name }}</li>
+        </ul>
+        <p class="subtitle">Cast</p>
         <ul class="cast">
           <li v-for="n in castCount">
             <div class="portrait">
@@ -52,6 +61,9 @@ export default {
     details() {
       return this.store.details;
     },
+    genres() {
+      return this.store.details.genres;
+    },
     cast() {
       return this.store.credits.cast;
     },
@@ -90,6 +102,11 @@ export default {
     box-shadow: 13px 12px 20px 0px rgb(0 0 0 / 29%);
     border-radius: 25px;
     padding: 30px;
+    .subtitle {
+      font-size: 12px;
+      font-style: italic;
+      opacity: 0.6;
+    }
     li {
       margin-bottom: 20px;
     }
@@ -125,6 +142,10 @@ export default {
         object-fit: cover;
         box-shadow: 13px 12px 20px 0px rgb(0 0 0 / 29%);
       }
+    }
+    .genres {
+      display: flex;
+      gap: 8px;
     }
   }
 }
