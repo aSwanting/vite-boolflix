@@ -7,7 +7,7 @@
         </li>
         <li>{{ overview }}</li>
         <ul class="cast">
-          <li v-for="n in 5">
+          <li v-for="n in castCount">
             <div class="portrait">
               <img v-show="castPhoto(n)" :src="castPhoto(n - 1)" alt="" />
             </div>
@@ -32,21 +32,18 @@ export default {
     castPhoto(n) {
       if (this.cast[n]) {
         const url = `http://image.tmdb.org/t/p/original${this.cast[n].profile_path}`;
-        console.log(url, n);
         return url;
       }
     },
     castName(n) {
       if (this.cast[n]) {
         const name = this.cast[n].name;
-        console.log(name, n);
         return name;
       }
     },
     castCharacter(n) {
       if (this.cast[n]) {
         const character = this.cast[n].character;
-        console.log(character, n);
         return character;
       }
     },
@@ -63,6 +60,9 @@ export default {
     },
     overview() {
       return this.details.overview;
+    },
+    castCount() {
+      return this.cast.length > 5 ? 5 : this.cast.length;
     },
   },
 };
@@ -83,7 +83,7 @@ export default {
   justify-content: center;
   align-items: center;
   .modal {
-    background-color: rgba(44, 44, 44, 0.9);
+    background-color: rgba(44, 44, 44, 0.8);
     color: white;
     width: 100%;
     max-width: 800px;
@@ -117,6 +117,7 @@ export default {
         border-radius: 50%;
         margin: 0 auto;
         margin-bottom: 8px;
+        max-height: 120px;
       }
       img {
         width: 100%;
