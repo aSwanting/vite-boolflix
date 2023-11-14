@@ -1,21 +1,20 @@
 <template>
   <div class="search-results">
-    <h2>Movies</h2>
-    <div class="movies">
-      <AppCard
-        v-for="currentMovie in movies"
-        :item="currentMovie"
-        category="film"
-      />
+
+    <div v-if="moviesCount" class="container">
+      <h2>Movies</h2>
+      <div class="movies">
+        <AppCard v-for="(currentMovie, index) in movies" :item="currentMovie" category="film" />
+      </div>
     </div>
-    <h2>Series</h2>
-    <div class="movies">
-      <AppCard
-        v-for="currentSeries in series"
-        :item="currentSeries"
-        category="tv"
-      />
+
+    <div v-if="seriesCount" class="container">
+      <h2>Series</h2>
+      <div class="series">
+        <AppCard v-for="(currentSeries, index) in series" :item="currentSeries" category="tv" />
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -38,6 +37,12 @@ export default {
     series() {
       return this.store.series;
     },
+    moviesCount() {
+      return this.store.movies.length;
+    },
+    seriesCount() {
+      return this.store.series.length;
+    },
   },
 };
 </script>
@@ -45,19 +50,24 @@ export default {
 <style lang="scss" scoped>
 .search-results {
   background-color: #292929;
-  padding: 0 40px;
   flex-grow: 1;
   overflow-y: auto;
-  h2 {
-    color: white;
-    text-transform: uppercase;
-    margin-block: 30px;
-  }
-  .movies,
-  .series {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+
+  .container {
+    padding: 40px;
+
+    h2 {
+      color: white;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .movies,
+    .series {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
   }
 }
 </style>

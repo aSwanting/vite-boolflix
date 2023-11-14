@@ -42,10 +42,13 @@ header {
   background-color: black;
   flex-shrink: 0;
 }
+
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 30px;
+
   .logo {
     color: red;
     font-weight: 700;
@@ -53,24 +56,31 @@ nav {
     user-select: none;
     cursor: pointer;
   }
+
   .search {
     display: flex;
     gap: 20px;
+
     input {
       border-radius: 50px;
-      padding: 5px 15px;
+      padding: 5px 10px;
+      width: 100%;
+      min-width: 50px;
       outline: none;
       border: none;
+
       &:focus-visible {
         outline: none;
         border: none;
       }
     }
+
     .search-icon {
       color: white;
       font-size: 25px;
       opacity: 0.8;
       cursor: pointer;
+
       &:hover {
         opacity: 1;
       }

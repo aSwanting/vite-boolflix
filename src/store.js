@@ -13,6 +13,8 @@ const store = reactive({
 
   fetchData() {
     if (this.query.trim()) {
+      this.movies = []
+      this.series = []
       const requests = this.endpoints.map((endpoint) =>
         axios.get(endpoint, {
           params: {
