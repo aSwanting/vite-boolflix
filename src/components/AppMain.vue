@@ -46,6 +46,7 @@ export default {
     return {
       store,
       genreIndex: -1,
+      genreId: null,
       cards: [],
     };
   },
@@ -60,17 +61,9 @@ export default {
       return this.$emit("tvDetails", id);
     },
     genreFilter(index) {
-      this.genreIndex = index;
-      // if ((this.cards = [])) {
-      //   this.cards = [...this.$refs.movieCards, ...this.$refs.tvCards];
-      // }
-      // this.cards.forEach((element) => {
-      //   if (!element.genre.includes(this.store.genres[index].id)) {
-      //     element.$el.style.display = "none";
-      //   } else {
-      //     element.$el.style.display = "block";
-      //   }
-      // });
+      this.genreIndex === index
+        ? (this.genreIndex = -1)
+        : (this.genreIndex = index);
     },
   },
   computed: {
@@ -89,16 +82,26 @@ export default {
   },
   watch: {
     genreIndex() {
-      if ((this.cards = [])) {
-        this.cards = [...this.$refs.movieCards, ...this.$refs.tvCards];
-      }
-      this.cards.forEach((element) => {
-        if (!element.genre.includes(this.store.genres[this.genreIndex].id)) {
-          element.$el.style.display = "none";
-        } else {
+      if (this.genreIndex < 0) {
+        this.genreId = null;
+        this.cards.forEach((element) => {
           element.$el.style.display = "block";
+        });
+      } else {
+        this.genreId = this.store.genres[this.genreIndex].id;
+        if (this.$refs.movieCards && this.$refs.tvCards) {
+          if ((this.cards = [])) {
+            this.cards = [...this.$refs.movieCards, ...this.$refs.tvCards];
+          }
+          this.cards.forEach((element) => {
+            if (!element.genre.includes(this.genreId)) {
+              element.$el.style.display = "none";
+            } else {
+              element.$el.style.display = "block";
+            }
+          });
         }
-      });
+      }
     },
   },
 };
@@ -124,7 +127,9 @@ export default {
       &:hover,
       &.active {
         opacity: 1;
-        font-weight: 600;
+      }
+      &.active {
+        color: red;
       }
     }
   }
