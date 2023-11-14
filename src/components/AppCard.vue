@@ -36,7 +36,6 @@ export default {
   data() {
     return {
       store,
-      translateTitle: false,
     };
   },
   computed: {
@@ -55,6 +54,13 @@ export default {
       }
       if (translated !== original) this.translateTitle = true;
       return { translated, original };
+    },
+    translateTitle() {
+      if (this.title.translated !== this.title.original) {
+        return true;
+      } else {
+        return false;
+      }
     },
     overview() {
       return this.item.overview;
