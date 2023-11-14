@@ -22,7 +22,7 @@
             :icon="[star <= stars ? 'fas' : 'far', 'star']"
           />
         </li>
-        <li><img class="flag" :src="flag" /></li>
+        <li><img v-if="flag" class="flag" :src="flag" /></li>
         <li>{{ overview }}</li>
       </ul>
     </div>
@@ -89,8 +89,9 @@ export default {
       return Math.round(this.item.vote_average / 2);
     },
     flag() {
+      const lang = this.item.original_language;
       const countryCode = getLanguage(
-        this.item.original_language
+        lang.replace("xx", "es")
       ).countryCode.replace("ja", "jp");
       return `https://flagcdn.com/h240/${countryCode}.png`;
     },
