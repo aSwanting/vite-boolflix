@@ -10,11 +10,12 @@ const store = reactive({
   query: "",
   movies: [],
   series: [],
+  credits: [],
 
   fetchData() {
     if (this.query.trim()) {
-      this.movies = []
-      this.series = []
+      this.movies = [];
+      this.series = [];
       const requests = this.endpoints.map((endpoint) =>
         axios.get(endpoint, {
           params: {
@@ -28,6 +29,17 @@ const store = reactive({
         console.log(this.movies, this.series);
       });
     }
+  },
+
+  fetchCredits(id) {
+    axios
+      .get(`https://api.themoviedb.org/3/movie/${id}/credits`, {
+        params: { api_key: this.API_KEY },
+      })
+      .then((res) => {
+        this.credits = res.data;
+        console.log(this.credits);
+      });
   },
 });
 

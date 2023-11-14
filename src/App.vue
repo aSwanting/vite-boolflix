@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <AppHeader @search="searchDB" />
-    <AppMain />
+    <AppMain @credits="itemCredits" />
   </div>
 </template>
 
@@ -22,6 +22,9 @@ export default {
   methods: {
     searchDB() {
       store.fetchData();
+    },
+    itemCredits(id) {
+      store.fetchCredits(id);
     },
   },
 };
