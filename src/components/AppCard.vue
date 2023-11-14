@@ -10,7 +10,8 @@
       <ul>
         <li>
           <h2 class="bold">{{ title.translated }}</h2>
-          <span v-show="translateTitle"> {{ title.original }}</span>
+          <p v-show="translateTitle">{{ title.original }}</p>
+          <p class="date" v-if="date">{{ date }}</p>
         </li>
         <li>
           <fa-icon
@@ -149,6 +150,10 @@ export default {
       background-color: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(10px);
       opacity: 1;
+    }
+    .date {
+      font-size: 12px;
+      font-style: italic;
     }
 
     ul {
