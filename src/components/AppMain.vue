@@ -1,7 +1,12 @@
 <template>
   <div class="search-results">
     <div class="genres">
-      <span v-for="genre in store.genres">{{ genre }}</span>
+      <span
+        v-for="(genre, index) in store.genres"
+        @click="genreFilter(index)"
+        :class="{ active: genreIndex === index }"
+        >{{ genre.name }}</span
+      >
     </div>
     <div v-if="moviesCount" class="container">
       <h2>Movies</h2>
@@ -11,6 +16,7 @@
           :key="currentMovie.id"
           :item="currentMovie"
           category="film"
+          ref="movieCards"
           @click="emitMovieDetails(currentMovie.id)"
         />
       </div>
@@ -24,6 +30,7 @@
           :key="currentSeries.id"
           :item="currentSeries"
           category="tv"
+          ref="tvCards"
           @click="emitTvDetails(currentSeries.id)"
         />
       </div>
@@ -38,6 +45,8 @@ export default {
   data() {
     return {
       store,
+      genreIndex: -1,
+      cards: [],
     };
   },
   components: {
@@ -49,6 +58,19 @@ export default {
     },
     emitTvDetails(id) {
       return this.$emit("tvDetails", id);
+    },
+    genreFilter(index) {
+      this.genreIndex = index;
+      // if ((this.cards = [])) {
+      //   this.cards = [...this.$refs.movieCards, ...this.$refs.tvCards];
+      // }
+      // this.cards.forEach((element) => {
+      //   if (!element.genre.includes(this.store.genres[index].id)) {
+      //     element.$el.style.display = "none";
+      //   } else {
+      //     element.$el.style.display = "block";
+      //   }
+      // });
     },
   },
   computed: {
@@ -63,6 +85,20 @@ export default {
     },
     seriesCount() {
       return this.store.series.length;
+    },
+  },
+  watch: {
+    genreIndex() {
+      if ((this.cards = [])) {
+        this.cards = [...this.$refs.movieCards, ...this.$refs.tvCards];
+      }
+      this.cards.forEach((element) => {
+        if (!element.genre.includes(this.store.genres[this.genreIndex].id)) {
+          element.$el.style.display = "none";
+        } else {
+          element.$el.style.display = "block";
+        }
+      });
     },
   },
 };
@@ -85,8 +121,10 @@ export default {
       opacity: 0.6;
       user-select: none;
       cursor: pointer;
-      &:hover {
+      &:hover,
+      &.active {
         opacity: 1;
+        font-weight: 600;
       }
     }
   }

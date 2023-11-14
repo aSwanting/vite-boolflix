@@ -57,6 +57,7 @@ const store = reactive({
     });
   },
   fetchGenres() {
+    const data = [];
     const endpoints = [
       `https://api.themoviedb.org/3/genre/movie/list`,
       `https://api.themoviedb.org/3/genre/tv/list`,
@@ -71,13 +72,26 @@ const store = reactive({
     axios.all(requests).then((res) => {
       res.map((item) => {
         item.data.genres.forEach((element) => {
-          if (!this.genres.includes(element.name)) {
-            this.genres.sort().push(element.name);
-          }
+          data.push(element);
         });
       });
+      const ids = data.map(({ id }) => id);
+      this.genres = data.filter(
+        ({ id }, index) => !ids.includes(id, index + 1)
+      );
+      this.genres.sort((a, b) => {
+        const genreA = a.name.toUpperCase();
+        const genreB = b.name.toUpperCase();
+        if (genreA < genreB) {
+          return -1;
+        }
+        if (genreA > genreB) {
+          return 1;
+        }
+        return 0;
+      });
+      console.log(this.genres);
     });
-    console.log("genres", this.genres);
   },
 });
 
