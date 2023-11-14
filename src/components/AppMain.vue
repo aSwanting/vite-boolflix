@@ -1,51 +1,36 @@
 <template>
   <div class="search-results">
     <div class="genres">
-      <span
-        v-for="(genre, index) in store.genres"
-        @click="genreFilter(index)"
-        :class="{ active: genreIndex === index }"
-        >{{ genre.name }}</span
-      >
+      <span v-for="(genre, index) in store.genres" @click="genreFilter(index)"
+        :class="{ active: currentGenre === index }">{{ genre.name }}</span>
     </div>
     <div v-if="moviesCount" class="container">
       <h2>Movies</h2>
       <div class="movies">
-        <AppCard
-          v-for="currentMovie in movies"
-          :key="currentMovie.id"
-          :item="currentMovie"
-          category="film"
-          ref="movieCards"
-          @click="emitMovieDetails(currentMovie.id)"
-        />
+        <AppCard v-for="currentMovie in movies" :key="currentMovie.id" :item="currentMovie" category="film"
+          ref="movieCards" @click="emitMovieDetails(currentMovie.id)" />
       </div>
     </div>
 
     <div v-if="seriesCount" class="container">
       <h2>Series</h2>
       <div class="series">
-        <AppCard
-          v-for="currentSeries in series"
-          :key="currentSeries.id"
-          :item="currentSeries"
-          category="tv"
-          ref="tvCards"
-          @click="emitTvDetails(currentSeries.id)"
-        />
+        <AppCard v-for="currentSeries in series" :key="currentSeries.id" :item="currentSeries" category="tv" ref="tvCards"
+          @click="emitTvDetails(currentSeries.id)" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { nextTick } from "vue";
 import store from "../store.js";
 import AppCard from "./AppCard.vue";
 export default {
   data() {
     return {
       store,
-      genreIndex: -1,
+      currentGenre: -1,
       genreId: null,
       cards: [],
     };
@@ -61,10 +46,24 @@ export default {
       return this.$emit("tvDetails", id);
     },
     genreFilter(index) {
-      this.genreIndex === index
-        ? (this.genreIndex = -1)
-        : (this.genreIndex = index);
+      if (this.currentGenre !== index) {
+        this.currentGenre = index
+        this.genreId = this.store.genres[this.currentGenre].id
+      } else {
+        this.currentGenre = -1
+        this.genreId = null
+      }
+
     },
+    filterCards() {
+      this.cards.forEach((element) => {
+        if (!this.genreId || element.genre.includes(this.genreId)) {
+          element.$el.style.display = "block";
+        } else if (!element.genre.includes(this.genreId)) {
+          element.$el.style.display = "none";
+        }
+      });
+    }
   },
   computed: {
     movies() {
@@ -79,29 +78,18 @@ export default {
     seriesCount() {
       return this.store.series.length;
     },
+
   },
   watch: {
-    genreIndex() {
-      if (this.genreIndex < 0) {
-        this.genreId = null;
-        this.cards.forEach((element) => {
-          element.$el.style.display = "block";
-        });
-      } else {
-        this.genreId = this.store.genres[this.genreIndex].id;
-        if (this.$refs.movieCards && this.$refs.tvCards) {
-          if ((this.cards = [])) {
-            this.cards = [...this.$refs.movieCards, ...this.$refs.tvCards];
-          }
-          this.cards.forEach((element) => {
-            if (!element.genre.includes(this.genreId)) {
-              element.$el.style.display = "none";
-            } else {
-              element.$el.style.display = "block";
-            }
-          });
-        }
-      }
+    moviesCount() {
+      nextTick(() => {
+        this.cards = [...this.$refs.movieCards, ...this.$refs.tvCards];
+        this.filterCards()
+      })
+    },
+    genreId() {
+      console.log("filter", this.genreId)
+      this.filterCards()
     },
   },
 };
@@ -120,14 +108,17 @@ export default {
     flex-wrap: wrap;
     gap: 10px;
     font-size: 24px;
+
     span {
       opacity: 0.6;
       user-select: none;
       cursor: pointer;
+
       &:hover,
       &.active {
         opacity: 1;
       }
+
       &.active {
         color: red;
       }
