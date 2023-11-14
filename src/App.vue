@@ -39,6 +39,10 @@ export default {
       this.modalOpen = false;
     },
   },
+  created() {
+    console.log("getting genres");
+    store.fetchGenres();
+  },
 };
 </script>
 

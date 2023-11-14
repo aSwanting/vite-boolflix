@@ -12,7 +12,7 @@ const store = reactive({
   series: [],
   details: [],
   credits: [],
-  cast: [],
+  genres: [],
 
   fetchData() {
     if (this.query.trim()) {
@@ -52,5 +52,31 @@ const store = reactive({
       this.cast = this.credits.cast.slice(0, 5);
     });
   },
+  fetchGenres() {
+    const endpoints = [
+      `https://api.themoviedb.org/3/genre/movie/list`,
+      `https://api.themoviedb.org/3/genre/tv/list`,
+    ];
+    const foo = [];
+
+    const requests = endpoints.map((endpoint) =>
+      axios.get(endpoint, {
+        params: {
+          api_key: this.API_KEY,
+        },
+      })
+    );
+    axios.all(requests).then((res) => {
+      res.map((item) => {
+        item.data.genres.forEach((element) => {
+          if (!this.genres.includes(element.name)) {
+            this.genres.sort().push(element.name);
+          }
+        });
+      });
+    });
+    console.log("genres", this.genres);
+  },
 });
+
 export default store;

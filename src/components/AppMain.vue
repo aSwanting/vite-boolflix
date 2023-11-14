@@ -1,5 +1,8 @@
 <template>
   <div class="search-results">
+    <div class="genres">
+      <span v-for="genre in store.genres">{{ genre }}</span>
+    </div>
     <div v-if="moviesCount" class="container">
       <h2>Movies</h2>
       <div class="movies">
@@ -70,6 +73,23 @@ export default {
   background-color: #292929;
   flex-grow: 1;
   overflow-y: auto;
+
+  .genres {
+    padding: 20px 40px 0 40px;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 24px;
+    span {
+      opacity: 0.6;
+      user-select: none;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
 
   .container {
     padding: 40px;
