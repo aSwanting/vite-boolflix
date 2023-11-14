@@ -10,7 +10,9 @@
       <ul>
         <li>
           <h2 class="bold">{{ title.translated }}</h2>
-          <p v-show="translateTitle">{{ title.original }}</p>
+          <p class="original-title" v-show="translateTitle">
+            {{ title.original }}
+          </p>
           <p class="date" v-if="date">{{ date }}</p>
         </li>
         <li>
@@ -150,6 +152,9 @@ export default {
       background-color: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(10px);
       opacity: 1;
+    }
+    .original-title {
+      font-size: 14px;
     }
     .date {
       font-size: 12px;
