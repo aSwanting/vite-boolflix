@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       store,
+      genre: this.item.genre_ids,
     };
   },
   computed: {
