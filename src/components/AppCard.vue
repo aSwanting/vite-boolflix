@@ -1,7 +1,12 @@
 <template>
   <div class="card">
     <img v-if="itemPoster" class="card-poster" :src="itemPoster" />
-    <div class="card-info" :class="{ visible: !itemPoster }">
+    <div v-else class="poster-placeholder">
+      <h2>{{ title.translated }}</h2>
+      <h4 v-if="date">{{ date }}</h4>
+    </div>
+
+    <div class="card-info">
       <ul>
         <li>
           <h2 class="bold">{{ title.translated }}</h2>
@@ -51,7 +56,6 @@ export default {
           original = this.item.original_name;
           break;
       }
-      if (translated !== original) this.translateTitle = true;
       return { translated, original };
     },
     translateTitle() {
@@ -60,6 +64,19 @@ export default {
       } else {
         return false;
       }
+    },
+    date() {
+      let date;
+      switch (this.category) {
+        case "film":
+          date = this.item.release_date;
+          break;
+        case "tv":
+          date = this.item.first_air_date;
+          break;
+      }
+      if (date) date = new Date(date).toLocaleDateString();
+      return date;
     },
     overview() {
       return this.item.overview;
@@ -94,6 +111,26 @@ export default {
     object-fit: cover;
     display: block;
     height: 100%;
+  }
+  .poster-placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 100%;
+    background: rgb(88, 20, 54);
+    background: linear-gradient(
+      30deg,
+      rgb(88, 20, 54) 0%,
+      rgba(33, 33, 33, 1) 100%
+    );
+    h2,
+    h4 {
+      font-weight: 300;
+      text-align: center;
+      text-transform: uppercase;
+    }
   }
   .card-info {
     position: absolute;
