@@ -8,12 +8,11 @@
           <span v-show="translateTitle"> {{ title.original }}</span>
         </li>
         <li>
-          <span class="star" v-for="star in stars">
-            <fa-icon :icon="['fas', 'star']" />
-          </span>
-          <span class="star" v-for="star in 5 - stars">
-            <fa-icon :icon="['far', 'star']" />
-          </span>
+          <fa-icon
+            class="star"
+            v-for="star in 5"
+            :icon="[star <= stars ? 'fas' : 'far', 'star']"
+          />
         </li>
         <li><img class="flag" :src="flag" /></li>
         <li>{{ overview }}</li>
