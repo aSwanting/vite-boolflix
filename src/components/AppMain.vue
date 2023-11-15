@@ -102,7 +102,6 @@ export default {
       });
     },
     genreId() {
-      console.log("filter", this.genreId);
       this.filterCards();
     },
   },

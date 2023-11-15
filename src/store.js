@@ -49,11 +49,9 @@ const store = reactive({
     );
     axios.all(requests).then((res) => {
       [this.details, this.credits] = res.map((item) => item.data);
-      console.log(this.details, this.credits);
       this.details.genres.forEach((element) => {
         this.currentGenres.push(element.name);
       });
-      console.log(this.currentGenres);
     });
   },
   fetchGenres() {
@@ -90,7 +88,6 @@ const store = reactive({
         }
         return 0;
       });
-      console.log(this.genres);
     });
   },
 });
